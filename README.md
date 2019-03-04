@@ -13,10 +13,15 @@ This repository is a quickstart/boilerplate for getting machine learning based t
 [Binance Account](https://www.binance.com/?ref=25062167)
 
 ### Required Python 3 Libraries:
+
 Python-Binance
+
 Sklearn
+
 Pandas
+
 Numpy
+
 Joblib
 
 ## Usage:
