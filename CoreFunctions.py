@@ -61,7 +61,6 @@ def CreateOpenHighLowCloseVolumeData(indata):
 #Sentiment data from bitfinex or Fear and greed data
 def FeatureCreation(indata):
     
-    
     convertedData = CreateOpenHighLowCloseVolumeData(indata)
     FeatureData = pd.DataFrame()
     FeatureData['o'] = convertedData['open']
@@ -69,14 +68,12 @@ def FeatureCreation(indata):
     FeatureData['l'] = convertedData['low']
     FeatureData['c'] = convertedData['close']
     FeatureData['v'] = convertedData['volume']
+    candleRatios(FeatureData)
     StepData(FeatureData['c'],FeatureData)
     GetChangeData(FeatureData)
     
     return FeatureData
     
-    
-    
-
 #Create targets for our machine learning model. This is done by predicting if the closing price of the next candle will 
 #be higher or lower than the current one.
 def CreateTargets(data, offset):
@@ -95,7 +92,8 @@ def CreateTargets(data, offset):
             y.append(0)
             
     return y
-    
+
+#FEATURE EXAMPLES
 #Calculate the change in the values of a column
 def GetChangeData(x):
 
@@ -109,7 +107,8 @@ def GetChangeData(x):
             x[j] = dif
         except Exception as e:
             print(e)
-        
+            
+#FEATURE EXAMPLES  
 #Calculate the percentage change between this bar and the previoud x bars
 def ChangeTime(x, step):
     
@@ -127,6 +126,7 @@ def ChangeTime(x, step):
     
     return out
 
+#FEATURE EXAMPLES
 #Automate the creation of percentage changes for 48 candles.  
 def StepData(x, data):
     
@@ -135,5 +135,19 @@ def StepData(x, data):
         data[str(i)+"StepDifference"] = ChangeTime(x, i)
 
 
+#FEATURE EXAMPLES
+#Features that take into acount the relations between the candle values  
+def candleRatios(data):
+    data['v_c'] = data['v'] / data['c']
+    data['h_c'] = data['h'] / data['c']
+    data['o_c'] = data['o'] / data['c']
+    data['l_c'] = data['l'] / data['c']
     
+    data['h_l'] = data['h'] / data['l']
+    data['v_l'] = data['v'] / data['l']
+    data['o_l'] = data['o'] / data['l']
     
+    data['o_h'] = data['o'] / data['h']
+    data['v_h'] = data['v'] / data['h']
+    
+    data['v_o'] = data['v'] / data['o']
