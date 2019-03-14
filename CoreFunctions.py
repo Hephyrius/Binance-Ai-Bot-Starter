@@ -56,6 +56,27 @@ def CreateOpenHighLowCloseVolumeData(indata):
     
     return out
 
+#This is the main function for feature creation and manipulation, modify this by adding your own functions and feature creation
+#prehaps try using technical analysis libraries for RSI or
+#Sentiment data from bitfinex or Fear and greed data
+def FeatureCreation(indata):
+    
+    
+    convertedData = CreateOpenHighLowCloseVolumeData(indata)
+    FeatureData = pd.DataFrame()
+    FeatureData['o'] = convertedData['open']
+    FeatureData['h'] = convertedData['high']
+    FeatureData['l'] = convertedData['low']
+    FeatureData['c'] = convertedData['close']
+    FeatureData['v'] = convertedData['volume']
+    StepData(FeatureData['c'],FeatureData)
+    GetChangeData(FeatureData)
+    
+    return FeatureData
+    
+    
+    
+
 #Create targets for our machine learning model. This is done by predicting if the closing price of the next candle will 
 #be higher or lower than the current one.
 def CreateTargets(data, offset):

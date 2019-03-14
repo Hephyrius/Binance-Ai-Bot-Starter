@@ -134,15 +134,7 @@ while(True):
     #make feature data used to make prediction
     if state == 2:
         #data = cf.makeTrainingData(data)
-        convertedData = cf.CreateOpenHighLowCloseVolumeData(data)
-        MLData = pd.DataFrame()
-        MLData['o'] = convertedData['open']
-        MLData['h'] = convertedData['high']
-        MLData['l'] = convertedData['low']
-        MLData['c'] = convertedData['close']
-        MLData['v'] = convertedData['volume']
-        cf.StepData(MLData['c'],MLData)
-        cf.GetChangeData(MLData)
+        MLData = cf.FeatureCreation(data)
         print(1)
         state = 3
     

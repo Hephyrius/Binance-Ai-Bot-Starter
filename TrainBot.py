@@ -29,21 +29,15 @@ client = Client(api_key, api_secret)
 candles = client.get_historical_klines("BTCUSDT", Client.KLINE_INTERVAL_1HOUR, "01 Jan, 2017", "10 Jul, 2020")
 
 #Convert the raw data from the exchange into a friendlier form with some basic feature creation
-convertedData = cf.CreateOpenHighLowCloseVolumeData(candles)
-sm = pd.DataFrame()
-sm['o'] = convertedData['open']
-sm['h'] = convertedData['high']
-sm['l'] = convertedData['low']
-sm['c'] = convertedData['close']
-sm['v'] = convertedData['volume']
+x = cf.FeatureCreation(candles)
 
-offset = 0
+#Create our targets
 y = cf.CreateTargets(candles,1)
-y = y[94:]
 
-cf.StepData(sm['c'],sm)
-cf.GetChangeData(sm)
-x = sm[94:len(candles)-1]
+#remove the top elements of the features and targets - this is for certain features that arent compatible with the top most
+#for example SMA27 would have 27 entries that would be incompatible/incomplete and would need to be discarded
+y = y[94:]
+x = x[94:len(candles)-1]
 
 #produce sets, avoiding overlaps!
 #data is seporated temporily rather than randomly
