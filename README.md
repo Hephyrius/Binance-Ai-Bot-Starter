@@ -5,6 +5,10 @@ Boilerplate/Starter code for trading on [Binance Exchange](https://www.binance.c
 
 ### This bot is intended to be a Proof-of-concept/Starter-kit. The developer will not be responsible for Any losses that are made are as a result of using this tool. Understand the risks involved and Only invest amounts you are willing to lose.  
 
+## Supporting:
+
+If you appreciate my work send all crypto donations in Eth, Bnb, Matic, Avax etc on any chain to : 0xe0a09b49721FBD8B23c67a3a9fdE44be4412B8fD
+
 ## What is this?
 
 This repository is a quickstart/boilerplate for getting machine learning based trading bots up and running. It provides a basic pipeline for training and deploying models, as well as creating some example features that could be used in a model.
